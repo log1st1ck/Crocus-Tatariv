@@ -1,36 +1,417 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Крокус</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Крокус — Татарів, Карпати</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="main-header">
-    <div class="header-container">
-    <nav class="nav-left">
-        <ul>
-            <li><a href="#rooms">Кімнати</a></li>
-            <li><a href="#about">Про нас</a></li>
 
-        </ul>
-    </nav>
+<header class="main-header">
+  <div class="header-container">
+    <nav class="nav-left"><ul>
+      <li><a href="#rooms">Номери</a></li>
+      <li><a href="#about">Про нас</a></li>
+    </ul></nav>
     <div class="logo-wrapper">
-        <a href="index.html">
-            <img src="logo.png" alt="Крокус Логотип" class="logo">
-        </a>
-        </div>
-        <nav class="nav-right">
-            <ul>
-                <li><a href="#services">Послуги</a></li>
-                <li><a href="#contacts">Контакти</a></li>
-                <li><button class="btn-book-header">Бронювати</button></li>
-            </ul>
-        </nav>
+      <svg width="130" height="60" viewBox="0 0 130 60" fill="none">
+        <text x="65" y="26" font-family="Cormorant Garamond,serif" font-size="26" font-weight="600" fill="#5E6738" text-anchor="middle" letter-spacing="6">КРОКУС</text>
+        <line x1="14" y1="33" x2="116" y2="33" stroke="#5E6738" stroke-width="0.7" opacity="0.45"/>
+        <text x="65" y="47" font-family="Montserrat,sans-serif" font-size="7" fill="#8a9450" text-anchor="middle" letter-spacing="4">ТАТАРІВ · КАРПАТИ</text>
+        <circle cx="9" cy="33" r="1.8" fill="#5E6738" opacity="0.45"/>
+        <circle cx="121" cy="33" r="1.8" fill="#5E6738" opacity="0.45"/>
+      </svg>
     </div>
+    <nav class="nav-right"><ul>
+      <li><a href="#services">Послуги</a></li>
+      <li><a href="#location">Як доїхати</a></li>
+      <li><button class="btn-book-header" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">Бронювати</button></li>
+    </ul></nav>
+  </div>
 </header>
 
-<script src="script.js"></script>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <polygon points="0,700 200,200 400,500 600,100 800,400 1000,150 1200,350 1200,700" fill="rgba(255,255,255,0.06)"/>
+      <polygon points="0,700 150,350 350,550 550,200 750,450 950,220 1150,380 1200,700" fill="rgba(255,255,255,0.04)"/>
+      <circle cx="600" cy="300" r="400" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <path d="M200 700 Q350 450 500 600 Q650 350 800 500 Q900 300 1100 400" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Відпочинковий комплекс · с. Татарів · Карпати</div>
+    <h1>Крокус</h1>
+    <p class="hero-sub">1000 м над рівнем моря — де тиша гір стає домом</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">Забронювати номер</button>
+      <button class="btn-outline" onclick="document.getElementById('rooms').scrollIntoView({behavior:'smooth'})">Переглянути номери</button>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Гортати</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Номерів у 2 будинках</div></div>
+  <div class="stat-item"><div class="stat-num">1000</div><div class="stat-label">Метрів над морем</div></div>
+  <div class="stat-item"><div class="stat-num">15</div><div class="stat-label">Км до Буковелю</div></div>
+  <div class="stat-item"><div class="stat-num">4.8</div><div class="stat-label">Рейтинг Google</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow">Про комплекс</p>
+        <h2 class="section-title">Два будинки<br><em>в урочищі Піги</em></h2>
+        <p class="section-intro">Відпочинковий комплекс «Крокус» розташований у с. Татарів, урочище Піги — 2,5 км від центру села, 2 км від автотраси Львів–Рахів–Мукачево, на висоті 1000 м. Зручний під'їзд — асфальтована дорога.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">2 триповерхові будинки на 6 номерів кожен</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Кухня на кожному поверсі з усім необхідним</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">2 сауни на 6 осіб кожна з кімнатою відпочинку</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Конференц-зал на 40 місць із проектором</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Дитячий майданчик, батут, гойдалки, настільний теніс</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Мангал, тандир, тераси біля кожного будинку</div></div>
+          <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Безперебійне живлення, Wi-Fi, супутникове ТВ</div></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="about-card-title">«Відчуй силу Карпат»</div>
+          <div class="about-card-text">Тут немає зайвого шуму — лише гірське повітря, аромат хвої, мелодія річки та тепло карпатського вогнища. Господар Василь та вся команда зустрічають кожного як вдома.</div>
+          <div class="about-tag">★ 4.8 · 114 відгуків Google</div>
+        </div>
+        <div class="about-accent"></div>
+        <div class="about-stat-box">
+          <div class="about-stat-num">48</div>
+          <div class="about-stat-label">Осіб — максимальна місткість</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms">
+  <div class="section-inner">
+    <div class="rooms-header">
+      <div>
+        <p class="eyebrow">Номери</p>
+        <h2 class="section-title" style="margin-bottom:0;">Оберіть <em>свій номер</em></h2>
+      </div>
+      <p class="rooms-header-note">У кожному номері: душ, туалет, умивальник, телевізор. Користування кухнею — безкоштовно.</p>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <div class="room-img room-img--standard">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" opacity="0.35"><rect x="10" y="38" width="52" height="22" rx="2" fill="white"/><rect x="20" y="28" width="32" height="12" rx="2" fill="white"/><rect x="22" y="44" width="10" height="16" fill="rgba(0,0,0,0.2)"/><rect x="40" y="44" width="10" height="16" fill="rgba(0,0,0,0.2)"/></svg>
+          <div class="room-tag">Стандарт</div>
+        </div>
+        <div class="room-body">
+          <div class="room-name">Стандарт у мансарді</div>
+          <div class="room-desc">Двоспальне ліжко, вішалка для одягу, телевізор. Санвузол (душ, туалет, умивальник). Затишна атмосфера під самим дахом. 2 номери в кожному будинку.</div>
+          <div class="room-meta">
+            <div>
+              <div class="room-price">800 грн<span class="room-price-ny">Новий рік: 1 400 грн</span></div>
+            </div>
+            <div class="room-guests">👤👤 2 особи</div>
+          </div>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-img room-img--family">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" opacity="0.35"><rect x="6" y="32" width="60" height="28" rx="2" fill="white"/><rect x="14" y="22" width="44" height="12" rx="2" fill="white"/><rect x="16" y="38" width="16" height="22" fill="rgba(0,0,0,0.2)"/><rect x="40" y="38" width="10" height="22" fill="rgba(0,0,0,0.2)"/><rect x="52" y="38" width="10" height="22" fill="rgba(0,0,0,0.15)"/></svg>
+          <div class="room-tag room-tag--gold">Сімейний</div>
+        </div>
+        <div class="room-body">
+          <div class="room-name">Сімейний з балконом</div>
+          <div class="room-desc">Двоспальне і двоярусне ліжка, балкон з виглядом на ліс, телевізор, вішалка. Ідеально для сімей з дітьми. 4 номери в комплексі.</div>
+          <div class="room-meta">
+            <div>
+              <div class="room-price">1 300 грн<span class="room-price-ny">Новий рік: 2 400 грн</span></div>
+            </div>
+            <div class="room-guests">👨‍👩‍👧 3–4 особи</div>
+          </div>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-img room-img--quad">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" opacity="0.35"><rect x="4" y="30" width="64" height="30" rx="2" fill="white"/><rect x="12" y="20" width="48" height="12" rx="2" fill="white"/><polygon points="36,4 12,20 60,20" fill="white"/><rect x="8" y="36" width="14" height="24" fill="rgba(0,0,0,0.2)"/><rect x="26" y="36" width="10" height="24" fill="rgba(0,0,0,0.2)"/><rect x="40" y="36" width="10" height="24" fill="rgba(0,0,0,0.2)"/><rect x="54" y="36" width="10" height="24" fill="rgba(0,0,0,0.15)"/></svg>
+          <div class="room-tag room-tag--red">Чотиримісний</div>
+        </div>
+        <div class="room-body">
+          <div class="room-name">Чотиримісний</div>
+          <div class="room-desc">Двоспальне та 2 односпальні ліжка, стіл, телевізор, вішалка. Є варіант з балконом та без (мансарда). 6 таких номерів у комплексі.</div>
+          <div class="room-meta">
+            <div>
+              <div class="room-price">1 400 грн<span class="room-price-ny">Новий рік: 2 600 грн</span></div>
+            </div>
+            <div class="room-guests">👤👤👤👤 4 особи</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Тип номеру</th>
+          <th>Ціна за добу (грн)</th>
+          <th>Новий рік (31.12–01.01)</th>
+          <th>К-сть</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Стандарт у мансарді</td><td>800</td><td class="ny-price">1 400</td><td>4 (×2 будинки)</td></tr>
+        <tr><td>Сімейний з балконом</td><td>1 300</td><td class="ny-price">2 400</td><td>4 (×2 будинки)</td></tr>
+        <tr><td>Чотиримісний з балконом</td><td>1 400</td><td class="ny-price">2 600</td><td>2 (×2 будинки)</td></tr>
+        <tr><td>Чотиримісний у мансарді</td><td>1 400</td><td class="ny-price">2 600</td><td>4 (×2 будинки)</td></tr>
+        <tr class="price-table__group"><td><strong>Групи 20–48 осіб</strong></td><td colspan="2"><strong>від 350 грн з особи</strong></td><td>весь комплекс</td></tr>
+      </tbody>
+    </table>
+    <p class="price-note">* Передоплата обов'язкова. Поселення — після 14:00, виселення — до 12:00.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="eyebrow">Послуги та сервіс</p>
+    <h2 class="section-title">Все для <em>вашого відпочинку</em></h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M5 28V15L17 6L29 15V28" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="19" width="10" height="9" stroke="#5E6738" stroke-width="1.5"/><path d="M3 28H31" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="service-title">Кухня</div>
+        <div class="service-desc">Плита, мікрохвильова піч, холодильник, посудомийна машина, чайник, весь посуд — на кожному поверсі</div>
+        <div class="service-badge service-badge--free">Безкоштовно</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M8 26C8 20 12 16 17 15C22 14 26 10 26 4" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="12" r="5" stroke="#5E6738" stroke-width="1.5"/><path d="M12 18L8 28M22 18L26 28" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="service-title">Сауна</div>
+        <div class="service-desc">2 сауни на 6 осіб кожна з кімнатою відпочинку. Дрова для мангалу та тандиру — за доплату</div>
+        <br>
+        <div class="service-badge service-badge--paid">1 300 грн / 3 год</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="5" y="5" width="24" height="24" rx="3" stroke="#5E6738" stroke-width="1.5"/><path d="M5 12H29M12 5V12" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><rect x="10" y="17" width="5" height="4" rx="1" fill="#5E6738" opacity="0.5"/><rect x="19" y="17" width="5" height="4" rx="1" fill="#5E6738" opacity="0.5"/><rect x="10" y="24" width="5" height="3" rx="1" fill="#5E6738" opacity="0.3"/></svg>
+        </div>
+        <div class="service-title">Конференц-зал</div>
+        <div class="service-desc">40 місць, проектор, аудіосистема, TV, Wi-Fi. Coffee break у залі або на кухні</div>
+        <br>
+        <br>
+        <div class="service-badge service-badge--paid">Безкоштовно</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M17 4C10.4 4 5 9.4 5 16C5 22.6 10.4 28 17 28" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><path d="M17 4C19 9 19 23 17 28" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><path d="M17 4C15 9 15 23 17 28" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><line x1="5" y1="16" x2="29" y2="16" stroke="#5E6738" stroke-width="1.5"/><path d="M22 24L26 20L30 24" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><path d="M26 20V30" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="service-title">Активний відпочинок</div>
+        <div class="service-desc">Екскурсії, кінні прогулянки, походи в гори, збір грибів та ягід. Настільний теніс, волейбол, батут</div>
+        <div class="service-badge service-badge--paid">За домовленістю</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="5" y="20" width="24" height="10" rx="2" stroke="#5E6738" stroke-width="1.5"/><path d="M9 20V16C9 12.7 12.7 10 17 10C21.3 10 25 12.7 25 16V20" stroke="#5E6738" stroke-width="1.5"/><circle cx="17" cy="10" r="4" stroke="#5E6738" stroke-width="1.5"/></svg>
+        </div>
+        <div class="service-title">Паркінг і гараж</div>
+        <div class="service-desc">Паркінг та гаражі під наглядом — безкоштовно. Виклик таксі. Транспортні послуги — за домовленістю</div>
+        <div class="service-badge service-badge--free">Безкоштовно</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M6 28C6 22 10 18 17 17C24 16 28 12 28 6" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="10" r="4" stroke="#5E6738" stroke-width="1.5"/><circle cx="24" cy="24" r="4" stroke="#5E6738" stroke-width="1.5"/></svg>
+        </div>
+        <div class="service-title">Wi-Fi та TV</div>
+        <div class="service-desc">Безлімітний Wi-Fi по всій території. Супутникове телебачення. Мобільний зв'язок Київстар, Vodafone, Lifecell</div>
+        <div class="service-badge service-badge--free">Безкоштовно</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="14" cy="14" r="7" stroke="#5E6738" stroke-width="1.5"/><circle cx="14" cy="11" r="3" stroke="#5E6738" stroke-width="1.2"/><path d="M7 21C7 18 10 16 14 16C18 16 21 18 21 21" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><circle cx="23" cy="20" r="5" stroke="#5E6738" stroke-width="1.5"/></svg>
+        </div>
+        <div class="service-title">Групи</div>
+        <div class="service-desc">Приймаємо організовані групи 20–48 осіб. В кожному будинку — 20–24 особи. Ціна від 350 грн з особи</div>
+        <div class="service-badge service-badge--free">Від 350 грн / особа</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="5" y="8" width="24" height="18" rx="2" stroke="#5E6738" stroke-width="1.5"/><path d="M5 13H29M12 8V5M22 8V5" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/><path d="M10 20H14M20 20H24M10 24H14" stroke="#5E6738" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="service-title">Побут</div>
+        <div class="service-desc">Пральна машина, праска, фен, прибирання номерів. Зміна постелі 1 раз на 5 днів, рушники 2 шт. на особу</div>
+        <div class="service-badge service-badge--free">Безкоштовно</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="section-inner">
+    <p class="eyebrow">Де знаходимося</p>
+    <h2 class="section-title">Як <em>доїхати</em></h2>
+    <div class="location-grid">
+      <div class="location-info">
+        <div class="loc-row">
+          <div class="loc-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.2 2 4 4.2 4 7C4 10.5 9 16 9 16C9 16 14 10.5 14 7C14 4.2 11.8 2 9 2Z" stroke="white" stroke-width="1.3"/><circle cx="9" cy="7" r="2" stroke="white" stroke-width="1.3"/></svg>
+          </div>
+          <div>
+            <div class="loc-label">Адреса</div>
+            <div class="loc-value">с. Татарів, урочище Піги<br>Надвірнянський район, Івано-Франківська обл.</div>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="9,2 11,7 17,7 12,11 14,16 9,13 4,16 6,11 1,7 7,7" stroke="white" stroke-width="1.3" fill="none"/></svg>
+          </div>
+          <div>
+            <div class="loc-label">GPS координати</div>
+            <div class="loc-value">48.33353° N, 24.58367° E</div>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.3"/><path d="M9 5V9L12 11" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="loc-label">Відстані</div>
+            <div class="loc-value">2,5 км від центру Татарова<br>2 км від траси Львів–Рахів<br>15 км від Буковелю</div>
+          </div>
+        </div>
+        <div class="loc-route">
+          <div class="loc-route-title">Автомобілем</div>
+          <div class="loc-route-text">До Івано-Франківська → автотраса H-09 → у с. Татарів на Т-подібному перехресті зі світлофором — ліворуч на Ворохту → через 2 км — ліворуч на перший міст через річку → ліворуч через другий міст → 700 м до комплексу (ліворуч від дороги).</div>
+        </div>
+        <div class="loc-route">
+          <div class="loc-route-title">Громадським транспортом</div>
+          <div class="loc-route-text">Автобусом або потягом до Івано-Франківська → маршрутне таксі до с. Татарів.</div>
+        </div>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=48.33353,24.58367&hl=uk&z=15&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Готель Крокус на карті — Татарів, Карпати">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts" class="contacts-section">
+  <div class="contacts-inner">
+    <div>
+      <h2 class="contacts-title">Забронюйте<br><em>свій відпочинок</em></h2>
+      <p class="contacts-sub">Зателефонуйте або заповніть форму — адміністратор зв'яжеться з вами та допоможе підібрати номер.</p>
+      <div class="contacts-list">
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3C2 2.4 2.4 2 3 2H5.5L6.5 5L5 6.5C5.8 8.1 7.9 10.2 9.5 11L11 9.5L14 10.5V13C14 13.6 13.6 14 13 14C7 14 2 9 2 3Z" stroke="white" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Телефон</div>
+            <div class="contact-value">+38 (067) 332-47-05</div>
+            <div class="contact-value">+38 (050) 916-39-16</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.7 2 3 4.7 3 8C3 11.3 5.7 14 9 14C9.9 14 10.8 13.8 11.6 13.4L14 14L13.4 11.6C13.8 10.8 14 9.9 14 9" stroke="white" stroke-width="1.2"/><circle cx="5" cy="5" r="3" stroke="white" stroke-width="1.2"/><path d="M3.5 5H6.5M5 3.5V6.5" stroke="white" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Мобільний зв'язок</div>
+            <div class="contact-value">Київстар · Vodafone · Lifecell</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.8 2 4 3.8 4 6C4 9 8 14 8 14C8 14 12 9 12 6C12 3.8 10.2 2 8 2Z" stroke="white" stroke-width="1.2"/><circle cx="8" cy="6" r="1.5" stroke="white" stroke-width="1.2"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Адреса</div>
+            <div class="contact-value">с. Татарів, урочище Піги<br>Івано-Франківська область</div>
+          </div>
+        </div>
+      </div>
+      <div class="check-box">
+        <div class="check-col">
+          <div class="check-label">Поселення</div>
+          <div class="check-value">після 14:00</div>
+        </div>
+        <div class="check-divider"></div>
+        <div class="check-col">
+          <div class="check-label">Виселення</div>
+          <div class="check-value">до 12:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-box">
+      <h3>Швидке бронювання</h3>
+      <div class="form-row">
+        <div class="form-group"><input class="form-input" type="text" placeholder="Ваше ім'я"></div>
+        <div class="form-group"><input class="form-input" type="tel" placeholder="Телефон"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><input class="form-input" type="date"></div>
+        <div class="form-group"><input class="form-input" type="date"></div>
+      </div>
+      <div class="form-group">
+        <select class="form-input form-select">
+          <option value="">Оберіть тип номеру</option>
+          <option>Стандарт (800 грн / добу)</option>
+          <option>Сімейний з балконом (1 300 грн / добу)</option>
+          <option>Чотиримісний з балконом (1 400 грн / добу)</option>
+          <option>Чотиримісний у мансарді (1 400 грн / добу)</option>
+          <option>Група 20–48 осіб (від 350 грн з особи)</option>
+        </select>
+      </div>
+      <div class="form-group"><input class="form-input" type="text" placeholder="Кількість гостей"></div>
+      <button class="btn-book-big">Надіслати запит</button>
+      <p class="booking-note">Передоплата обов'язкова · Адміністратор зв'яжеться з вами</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Крокус · Татарів</div>
+    <div class="footer-copy">© 2024 Відпочинковий комплекс «Крокус», с. Татарів</div>
+    <div class="footer-links">
+      <a href="#rooms">Номери</a>
+      <a href="#services">Послуги</a>
+      <a href="#location">Карта</a>
+      <a href="#contacts">Контакти</a>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
