@@ -1173,3 +1173,21 @@ footer {
 .slide.active {
   display: block;
 }
+@media (max-width: 768px) {
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contacts-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+  }
+
+  .nav-left,
+  .nav-right ul li:not(:last-child) {
+    display: none;
+  }
+}
