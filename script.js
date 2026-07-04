@@ -29,35 +29,24 @@ if (next && prev && slides.length > 0) {
 
 
 // Відправка заявки в Telegram
-let lastSendTime = 0;
-
-function sendTelegram() {
-    const now = Date.now();
-
-    if (now - lastSendTime < 30000) {
-        alert("Зачекайте 30 секунд перед повторною відправкою.");
-        return;
-    }
-
-    const token = "token";
-    const chatId = "chatId";
-
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const dateFrom = document.getElementById("dateFrom").value;
-    const dateTo = document.getElementById("dateTo").value;
-    const room = document.getElementById("room").value;
-    const guests = document.getElementById("guests").value.trim();
+function sendTelegramModal() {
+    const name = document.getElementById("modalName").value.trim();
+    const phone = document.getElementById("modalPhone").value.trim();
+    const dateFrom = document.getElementById("modalDateFrom").value;
+    const dateTo = document.getElementById("modalDateTo").value;
+    const room = document.getElementById("modalRoom").value;
+    const guests = document.getElementById("guestCount").textContent;
 
     if (!name || !phone || !dateFrom || !dateTo || !room || !guests) {
         alert("Будь ласка, заповніть усі поля.");
         return;
     }
 
-    lastSendTime = now;
+    const token = "your_token_from_bot_Father";
+    const chatId = "your_chatid";
 
     const text =
-`🏔 Нова заявка з сайту Крокус
+`🏔 Нова заявка з pop-up Крокус
 
 👤 Ім'я: ${name}
 📞 Телефон: ${phone}
@@ -80,13 +69,14 @@ function sendTelegram() {
     .then(data => {
         if (data.ok) {
             alert("Заявку успішно надіслано!");
+            document.getElementById("bookingModal").classList.remove("active");
 
-            document.getElementById("name").value = "";
-            document.getElementById("phone").value = "";
-            document.getElementById("dateFrom").value = "";
-            document.getElementById("dateTo").value = "";
-            document.getElementById("room").value = "";
-            document.getElementById("guests").value = "";
+            document.getElementById("modalName").value = "";
+            document.getElementById("modalPhone").value = "";
+            document.getElementById("modalDateFrom").value = "";
+            document.getElementById("modalDateTo").value = "";
+            document.getElementById("modalRoom").value = "";
+            document.getElementById("guestCount").textContent = "1";
         } else {
             alert("Помилка відправки.");
             console.log(data);
@@ -97,3 +87,115 @@ function sendTelegram() {
         console.log(error);
     });
 }
+// Анімація і pop-up бронювання
+const bookingModal = document.getElementById("bookingModal");
+const closeBooking = document.getElementById("closeBooking");
+const openBookingButtons = document.querySelectorAll(".openBooking");
+
+openBookingButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        bookingModal.classList.add("active");
+
+        // Запускаємо календар один раз
+        startCalendar();
+
+        // Якщо кнопка має data-room, автоматично вибираємо номер
+        const room = button.dataset.room;
+        if (room) {
+            document.getElementById("modalRoom").value = room;
+        }
+    });
+});
+
+if (closeBooking) {
+    closeBooking.addEventListener("click", () => {
+        bookingModal.classList.remove("active");
+    });
+}
+
+if (bookingModal) {
+    bookingModal.addEventListener("click", (e) => {
+        if (e.target === bookingModal) {
+            bookingModal.classList.remove("active");
+        }
+    });
+}
+
+// Кількість гостей у pop-up
+const minusGuest = document.getElementById("minusGuest");
+const plusGuest = document.getElementById("plusGuest");
+const guestCount = document.getElementById("guestCount");
+
+let modalGuests = 1;
+
+if (plusGuest && minusGuest && guestCount) {
+  plusGuest.addEventListener("click", () => {
+    if (modalGuests < 10) {
+      modalGuests++;
+      guestCount.textContent = modalGuests;
+    }
+  });
+
+  minusGuest.addEventListener("click", () => {
+    if (modalGuests > 1) {
+      modalGuests--;
+      guestCount.textContent = modalGuests;
+    }
+  });
+}
+// Календар у pop-up
+let calendarStarted = false;
+
+function startCalendar() {
+  if (calendarStarted) return;
+
+  if (typeof flatpickr === "undefined") {
+    alert("Flatpickr не підключився. Перевір script у HTML.");
+    return;
+  }
+
+  const checkOut = flatpickr("#modalDateTo", {
+    locale: "uk",
+    dateFormat: "d.m.Y",
+    minDate: "today",
+    disableMobile: true
+  });
+
+  flatpickr("#modalDateFrom", {
+    locale: "uk",
+    dateFormat: "d.m.Y",
+    minDate: "today",
+    disableMobile: true,
+    onChange: function (selectedDates) {
+      if (selectedDates.length > 0) {
+        checkOut.set("minDate", selectedDates[0]);
+        checkOut.open();
+      }
+    }
+  });
+
+  calendarStarted = true;
+}
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof flatpickr !== "undefined") {
+    const bottomDateTo = flatpickr("#dateTo", {
+      locale: "uk",
+      dateFormat: "d.m.Y",
+      minDate: "today",
+      disableMobile: true
+    });
+
+    flatpickr("#dateFrom", {
+      locale: "uk",
+      dateFormat: "d.m.Y",
+      minDate: "today",
+      disableMobile: true,
+      onChange: function (selectedDates) {
+        if (selectedDates.length > 0) {
+          bottomDateTo.set("minDate", selectedDates[0]);
+          bottomDateTo.open();
+        }
+      }
+    });
+  }
+});
