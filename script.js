@@ -29,63 +29,58 @@ if (next && prev && slides.length > 0) {
 
 
 // Відправка заявки в Telegram
+// Google Apps Script URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/1mp9RKEw0Br3uBiPJwYtTXq35DSeqX8TugJNuH-315Ig1j7DzpMFpcnzx/1";
+
+// Відправка в Google Таблицю
+function sendBookingToGoogle(data) {
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).catch(error => {
+    console.log("Google Sheets error:", error);
+  });
+}
+
+// Відправка заявки
 function sendTelegramModal() {
-    const name = document.getElementById("modalName").value.trim();
-    const phone = document.getElementById("modalPhone").value.trim();
-    const dateFrom = document.getElementById("modalDateFrom").value;
-    const dateTo = document.getElementById("modalDateTo").value;
-    const room = document.getElementById("modalRoom").value;
-    const guests = document.getElementById("guestCount").textContent;
+  const name = document.getElementById("modalName").value.trim();
+  const phone = document.getElementById("modalPhone").value.trim();
+  const dateFrom = document.getElementById("modalDateFrom").value;
+  const dateTo = document.getElementById("modalDateTo").value;
+  const room = document.getElementById("modalRoom").value;
+  const guests = document.getElementById("guestCount").textContent;
 
-    if (!name || !phone || !dateFrom || !dateTo || !room || !guests) {
-        alert("Будь ласка, заповніть усі поля.");
-        return;
-    }
+  if (!name || !phone || !dateFrom || !dateTo || !room || !guests) {
+    alert("Будь ласка, заповніть усі поля.");
+    return;
+  }
 
-    const token = "your_token_from_bot_Father";
-    const chatId = "your_chatid";
+  sendBookingToGoogle({
+    secret: "1402200222112008",
+    name,
+    phone,
+    dateFrom,
+    dateTo,
+    room,
+    guests,
+    source: "pop-up"
+  });
 
-    const text =
-`🏔 Нова заявка з pop-up Крокус
+  alert("Заявку успішно надіслано!");
 
-👤 Ім'я: ${name}
-📞 Телефон: ${phone}
-📅 Заїзд: ${dateFrom}
-📅 Виїзд: ${dateTo}
-🏠 Номер: ${room}
-👥 Гостей: ${guests}`;
+  document.getElementById("bookingModal").classList.remove("active");
 
-    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: text
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            alert("Заявку успішно надіслано!");
-            document.getElementById("bookingModal").classList.remove("active");
-
-            document.getElementById("modalName").value = "";
-            document.getElementById("modalPhone").value = "";
-            document.getElementById("modalDateFrom").value = "";
-            document.getElementById("modalDateTo").value = "";
-            document.getElementById("modalRoom").value = "";
-            document.getElementById("guestCount").textContent = "1";
-        } else {
-            alert("Помилка відправки.");
-            console.log(data);
-        }
-    })
-    .catch(error => {
-        alert("Помилка з'єднання.");
-        console.log(error);
-    });
+  document.getElementById("modalName").value = "";
+  document.getElementById("modalPhone").value = "";
+  document.getElementById("modalDateFrom").value = "";
+  document.getElementById("modalDateTo").value = "";
+  document.getElementById("modalRoom").value = "";
+  document.getElementById("guestCount").textContent = "1";
 }
 // Анімація і pop-up бронювання
 const bookingModal = document.getElementById("bookingModal");
