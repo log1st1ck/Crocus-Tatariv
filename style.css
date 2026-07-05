@@ -524,16 +524,25 @@ section {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .room-img--standard { background: linear-gradient(135deg, #4a5228, #6b7a3a); }
 .room-img--family { background: linear-gradient(135deg, #3d4a20, #5e6738); }
 .room-img--quad { background: linear-gradient(135deg, #2a3015, #4a5228); }
 
+.room-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .room-tag {
   position: absolute;
   top: 14px;
   left: 14px;
+  z-index: 3;
   background: var(--green);
   color: #fff;
   font-size: 9px;
@@ -682,6 +691,10 @@ section {
   background: var(--cream);
   border-radius: 2px;
   transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 250px;
 }
 
 .service-card:hover {
@@ -722,6 +735,7 @@ section {
   color: var(--text-light);
   line-height: 1.7;
   transition: color 0.3s;
+  margin-bottom: 20px;
 }
 
 .service-badge {
@@ -732,7 +746,7 @@ section {
   text-transform: uppercase;
   padding: 3px 10px;
   border-radius: 1px;
-  margin-top: 10px;
+  margin-top: auto;
   transition: all 0.3s;
 }
 
@@ -1633,8 +1647,45 @@ footer {
   transform: translateY(-2px);
   box-shadow: 0 16px 34px rgba(125, 92, 39, 0.38);
 }
-.service-gallery-open {
+.service-gallery-open,
+.room-gallery-open {
   cursor: pointer;
+}
+
+.room-gallery-open .room-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 20, 14, 0.16);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.room-gallery-open .room-img::after {
+  content: "Фото";
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--green-dark);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.room-gallery-open:hover .room-img::before,
+.room-gallery-open:hover .room-img::after {
+  opacity: 1;
+}
+
+.room-gallery-open:hover .room-img::after {
+  transform: translateY(0);
 }
 
 .service-modal {
@@ -1815,6 +1866,201 @@ footer {
   }
 
   .service-thumbs img {
+    height: 66px;
+  }
+}
+
+.room-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(10, 18, 14, 0.74);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+}
+
+.room-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.room-modal__content {
+  width: 100%;
+  max-width: 980px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #f8f5ee;
+  border-radius: 28px;
+  padding: 34px;
+  position: relative;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+  transform: translateY(18px) scale(0.97);
+  transition: 0.3s ease;
+}
+
+.room-modal.active .room-modal__content {
+  transform: translateY(0) scale(1);
+}
+
+.room-modal__close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #28352c;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.room-modal__top {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.room-modal__top h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 42px;
+  color: #243629;
+  margin: 6px 0 10px;
+}
+
+.room-modal__top p {
+  font-family: "Montserrat", sans-serif;
+  color: #5f5b52;
+  line-height: 1.7;
+}
+
+.room-gallery {
+  display: grid;
+  grid-template-columns: 54px 1fr 54px;
+  align-items: center;
+  gap: 16px;
+}
+
+.room-gallery__main {
+  height: 470px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #e8e2d6;
+}
+
+.room-gallery__main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.room-gallery__arrow {
+  width: 54px;
+  height: 54px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2c3b30;
+  font-size: 42px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.13);
+  transition: 0.2s ease;
+}
+
+.room-gallery__arrow:hover {
+  transform: translateY(-2px);
+  background: #efe7d7;
+}
+
+.room-gallery__counter {
+  text-align: center;
+  margin: 14px 0 18px;
+  font-family: "Montserrat", sans-serif;
+  color: #6c654f;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+.room-thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.room-thumbs img {
+  width: 110px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.65;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+  flex: 0 0 auto;
+}
+
+.room-thumbs img.active {
+  opacity: 1;
+  border-color: #9c7a3e;
+}
+
+.room-modal__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.room-modal__actions .openBooking {
+  width: min(100%, 300px) !important;
+  height: auto !important;
+  padding: 14px 24px !important;
+  font-size: 11px !important;
+  letter-spacing: 2px !important;
+}
+
+@media (max-width: 768px) {
+  .room-modal {
+    padding: 12px;
+  }
+
+  .room-modal__content {
+    padding: 28px 16px 20px;
+    border-radius: 22px;
+  }
+
+  .room-modal__top h2 {
+    font-size: 34px;
+  }
+
+  .room-gallery {
+    grid-template-columns: 42px 1fr 42px;
+    gap: 8px;
+  }
+
+  .room-gallery__main {
+    height: 300px;
+  }
+
+  .room-gallery__arrow {
+    width: 42px;
+    height: 42px;
+    font-size: 34px;
+  }
+
+  .room-thumbs img {
+    width: 92px;
     height: 66px;
   }
 }

@@ -181,13 +181,8 @@
     <div class="rooms-grid">
 
       <div class="room-card room-gallery-open" data-room-gallery="standard">
-        <div class="room-img room-img--standard">
-          <svg fill="none" height="72" opacity="0.35" viewbox="0 0 72 72" width="72">
-            <rect fill="white" height="22" rx="2" width="52" x="10" y="38"></rect>
-            <rect fill="white" height="12" rx="2" width="32" x="20" y="28"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="16" width="10" x="22" y="44"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="16" width="10" x="40" y="44"></rect>
-          </svg>
+        <div class="room-img room-img--standard room-img--photo">
+          <img class="room-cover" src="images/standrt/1.jpg" alt="Стандарт у мансарді у комплексі Крокус">
 
           <div class="room-tag">Стандарт</div>
         </div>
@@ -219,14 +214,8 @@
       </div>
 
       <div class="room-card room-gallery-open" data-room-gallery="family">
-        <div class="room-img room-img--family">
-          <svg fill="none" height="72" opacity="0.35" viewbox="0 0 72 72" width="72">
-            <rect fill="white" height="28" rx="2" width="60" x="6" y="32"></rect>
-            <rect fill="white" height="12" rx="2" width="44" x="14" y="22"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="22" width="16" x="16" y="38"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="22" width="10" x="40" y="38"></rect>
-            <rect fill="rgba(0,0,0,0.15)" height="22" width="10" x="52" y="38"></rect>
-          </svg>
+        <div class="room-img room-img--family room-img--photo">
+          <img class="room-cover" src="images/family/1.jpg" alt="Сімейний номер з балконом у комплексі Крокус">
 
           <div class="room-tag room-tag--gold">Сімейний</div>
         </div>
@@ -258,14 +247,8 @@
       </div>
 
       <div class="room-card room-gallery-open" data-room-gallery="quad">
-        <div class="room-img room-img--quad">
-          <svg fill="none" height="72" opacity="0.35" viewbox="0 0 72 72" width="72">
-            <rect fill="white" height="28" rx="2" width="60" x="6" y="32"></rect>
-            <rect fill="white" height="12" rx="2" width="44" x="14" y="22"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="22" width="16" x="16" y="38"></rect>
-            <rect fill="rgba(0,0,0,0.2)" height="22" width="10" x="40" y="38"></rect>
-            <rect fill="rgba(0,0,0,0.15)" height="22" width="10" x="52" y="38"></rect>
-          </svg>
+        <div class="room-img room-img--quad room-img--photo">
+          <img class="room-cover" src="images/4misnyi/1.jpg" alt="Чотиримісний номер у комплексі Крокус">
 
           <div class="room-tag room-tag--red">Чотиримісний</div>
         </div>
@@ -398,7 +381,6 @@
         </div>
         <div class="service-title">Сауна</div>
         <div class="service-desc">2 сауни на 6 осіб кожна з кімнатою відпочинку. Дрова для мангалу та тандиру — за доплату</div>
-        <br>
         <div class="service-badge service-badge--paid">1 300 грн / 3 год</div>
       </div>
 
@@ -408,7 +390,6 @@
         </div>
         <div class="service-title">Конференц-зал</div>
         <div class="service-desc">40 місць, проектор, аудіосистема, TV, Wi-Fi. Coffee break у залі або на кухні</div>
-        <br><br>
         <div class="service-badge service-badge--paid">Безкоштовно</div>
       </div>
 
@@ -632,6 +613,79 @@
 </div>
 </div>
 </footer>
+<div class="room-modal" id="roomModal">
+  <div class="room-modal__content">
+
+    <button
+      class="room-modal__close"
+      id="roomModalClose"
+      type="button">
+      ×
+    </button>
+
+    <div class="room-modal__top">
+      <p class="eyebrow">Галерея номеру</p>
+
+      <h2 id="roomModalTitle">
+        Назва номеру
+      </h2>
+
+      <p id="roomModalText">
+        Опис номеру
+      </p>
+    </div>
+
+    <div class="room-gallery">
+
+      <button
+        class="room-gallery__arrow room-gallery__arrow--prev"
+        id="roomPrev"
+        type="button">
+        ‹
+      </button>
+
+      <div class="room-gallery__main">
+        <img
+          id="roomMainImage"
+          src=""
+          alt="">
+      </div>
+
+      <button
+        class="room-gallery__arrow room-gallery__arrow--next"
+        id="roomNext"
+        type="button">
+        ›
+      </button>
+
+    </div>
+
+    <div
+      class="room-gallery__counter"
+      id="roomCounter">
+      1 / 8
+    </div>
+
+    <div
+      class="room-thumbs"
+      id="roomThumbs">
+    </div>
+
+    <div class="room-modal__actions">
+
+      <button
+        class="btn-book-header btn-book-big openBooking"
+        id="roomModalBook"
+        type="button">
+
+        Забронювати номер
+
+      </button>
+
+    </div>
+
+  </div>
+</div>
 <!-- BOOKING MODAL -->
 <div class="booking-modal" id="bookingModal">
 <div class="booking-modal-content">

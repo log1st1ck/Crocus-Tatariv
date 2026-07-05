@@ -86,15 +86,43 @@ const bookingModal = document.getElementById("bookingModal");
 const closeBooking = document.getElementById("closeBooking");
 const openBookingButtons = document.querySelectorAll(".openBooking");
 
+function selectBookingRoom(room) {
+  const modalRoom = document.getElementById("modalRoom");
+
+  if (!modalRoom || !room) return;
+
+  modalRoom.value = room;
+
+  if (modalRoom.value === room) return;
+
+  const matchingOption = Array.from(modalRoom.options).find(option => {
+    const optionText = option.textContent.trim();
+
+    return optionText.includes(room) || room.includes(optionText.split(" (")[0]);
+  });
+
+  if (matchingOption) {
+    modalRoom.value = matchingOption.value;
+  }
+}
+
 openBookingButtons.forEach(button => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", event => {
+    event.stopPropagation();
+
+    if (!bookingModal) return;
+
+    if (typeof closeRoomGallery === "function") {
+      closeRoomGallery();
+    }
+
     bookingModal.classList.add("active");
 
     startCalendar();
 
     const room = button.dataset.room;
     if (room) {
-      document.getElementById("modalRoom").value = room;
+      selectBookingRoom(room);
     }
   });
 });
@@ -219,6 +247,240 @@ if (successModal) {
     }
   });
 }
+
+const roomGalleries = {
+  standard: {
+    title: "Стандарт у мансарді",
+    text: "Двомісний номер під дахом з двоспальним ліжком, телевізором, вішалкою та власним санвузлом.",
+    bookingValue: "Стандарт у мансарді",
+    images: [
+      "images/standrt/1.jpg",
+      "images/standrt/2.jpg"
+    ]
+  },
+
+  family: {
+    title: "Сімейний з балконом",
+    text: "Просторий номер для сім'ї з двоспальним і двоярусним ліжками, балконом з виглядом на ліс та власним санвузлом.",
+    bookingValue: "Сімейний з балконом",
+    images: [
+      "images/family/1.jpg",
+      "images/family/2.jpg",
+      "images/family/3.jpg",
+      "images/family/4.jpg",
+      "images/family/5.jpg",
+      "images/family/6.jpg"
+    ]
+  },
+
+  quad: {
+    title: "Чотиримісний",
+    text: "Номер для чотирьох гостей з двоспальним та двома односпальними ліжками. Є варіанти з балконом і в мансарді.",
+    bookingValue: "Чотиримісний",
+    images: [
+      "images/4misnyi/1.jpg",
+      "images/4misnyi/2.jpg",
+      "images/4misnyi/3.jpg",
+      "images/4misnyi/4.jpg",
+      "images/4misnyi/5.jpg",
+      "images/4misnyi/6.jpg",
+      "images/4misnyi/7.jpg",
+      "images/4misnyi/8.jpg",
+      "images/4misnyi/9.jpg"
+    ]
+  }
+};
+
+let currentRoomGallery = null;
+let currentRoomIndex = 0;
+let roomGalleryRequest = 0;
+const roomFallbackImage = "images/background/beckground.jpg";
+
+const roomModal = document.getElementById("roomModal");
+const roomModalClose = document.getElementById("roomModalClose");
+const roomModalTitle = document.getElementById("roomModalTitle");
+const roomModalText = document.getElementById("roomModalText");
+const roomMainImage = document.getElementById("roomMainImage");
+const roomThumbs = document.getElementById("roomThumbs");
+const roomCounter = document.getElementById("roomCounter");
+const roomPrev = document.getElementById("roomPrev");
+const roomNext = document.getElementById("roomNext");
+const roomModalBook = document.getElementById("roomModalBook");
+
+function getRoomImages() {
+  if (
+    !currentRoomGallery ||
+    !currentRoomGallery.resolvedImages ||
+    currentRoomGallery.resolvedImages.length === 0
+  ) {
+    return [roomFallbackImage];
+  }
+
+  return currentRoomGallery.resolvedImages;
+}
+
+function loadRoomImage(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+
+    img.onload = () => resolve(src);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+async function openRoomGallery(galleryName) {
+  const selectedGallery = roomGalleries[galleryName];
+
+  currentRoomGallery = selectedGallery;
+  currentRoomIndex = 0;
+  roomGalleryRequest++;
+
+  if (!currentRoomGallery || !roomModal) return;
+
+  roomModalTitle.textContent = currentRoomGallery.title;
+  roomModalText.textContent = currentRoomGallery.text;
+
+  if (roomModalBook) {
+    roomModalBook.dataset.room = currentRoomGallery.bookingValue;
+  }
+
+  renderRoomGallery();
+  roomModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+
+  const requestId = roomGalleryRequest;
+  const existingImages = (await Promise.all(
+    selectedGallery.images.map(loadRoomImage)
+  )).filter(Boolean);
+
+  if (requestId !== roomGalleryRequest || currentRoomGallery !== selectedGallery) {
+    return;
+  }
+
+  selectedGallery.resolvedImages = existingImages;
+  currentRoomIndex = 0;
+  renderRoomGallery();
+}
+
+function renderRoomGallery() {
+  if (
+    !currentRoomGallery ||
+    !roomMainImage ||
+    !roomThumbs ||
+    !roomCounter
+  ) {
+    return;
+  }
+
+  const images = getRoomImages();
+  const currentImage = images[currentRoomIndex];
+
+  roomMainImage.onerror = () => {
+    roomMainImage.onerror = null;
+    roomMainImage.src = roomFallbackImage;
+  };
+  roomMainImage.src = currentImage;
+  roomMainImage.alt = currentRoomGallery.title;
+
+  roomCounter.textContent = `${currentRoomIndex + 1} / ${images.length}`;
+  roomThumbs.innerHTML = "";
+
+  images.forEach((src, index) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `${currentRoomGallery.title} фото ${index + 1}`;
+    img.onerror = () => {
+      img.onerror = null;
+      img.src = roomFallbackImage;
+    };
+
+    if (index === currentRoomIndex) {
+      img.classList.add("active");
+    }
+
+    img.addEventListener("click", event => {
+      event.stopPropagation();
+      currentRoomIndex = index;
+      renderRoomGallery();
+    });
+
+    roomThumbs.appendChild(img);
+  });
+}
+
+function closeRoomGallery() {
+  if (!roomModal) return;
+
+  roomGalleryRequest++;
+  roomModal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+document.querySelectorAll(".room-gallery-open").forEach(card => {
+  card.addEventListener("click", event => {
+    if (event.target.closest(".openBooking")) return;
+
+    const galleryName = card.getAttribute("data-room-gallery");
+    openRoomGallery(galleryName);
+  });
+});
+
+if (roomModalClose) {
+  roomModalClose.addEventListener("click", closeRoomGallery);
+}
+
+if (roomModal) {
+  roomModal.addEventListener("click", e => {
+    if (e.target === roomModal) {
+      closeRoomGallery();
+    }
+  });
+}
+
+if (roomPrev) {
+  roomPrev.addEventListener("click", event => {
+    event.stopPropagation();
+    if (!currentRoomGallery) return;
+
+    const images = getRoomImages();
+
+    currentRoomIndex =
+      (currentRoomIndex - 1 + images.length) % images.length;
+
+    renderRoomGallery();
+  });
+}
+
+if (roomNext) {
+  roomNext.addEventListener("click", event => {
+    event.stopPropagation();
+    if (!currentRoomGallery) return;
+
+    const images = getRoomImages();
+
+    currentRoomIndex = (currentRoomIndex + 1) % images.length;
+
+    renderRoomGallery();
+  });
+}
+
+document.addEventListener("keydown", e => {
+  if (!roomModal || !roomModal.classList.contains("active")) return;
+
+  if (e.key === "Escape") {
+    closeRoomGallery();
+  }
+
+  if (e.key === "ArrowLeft" && roomPrev) {
+    roomPrev.click();
+  }
+
+  if (e.key === "ArrowRight" && roomNext) {
+    roomNext.click();
+  }
+});
+
 const serviceGalleries = {
   kitchen: {
     title: "Кухня",
