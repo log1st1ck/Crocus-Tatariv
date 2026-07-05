@@ -224,14 +224,14 @@ const serviceGalleries = {
     title: "Кухня",
     text: "На кожному поверсі є кухня з усім необхідним для комфортного приготування їжі: плита, мікрохвильова піч, холодильник, посудомийна машина, чайник та посуд.",
     images: [
-      "images/kitchen/1.webp",
-      "images/kitchen/2.webp",
-      "images/kitchen/3.webp",
-      "images/kitchen/4.webp",
-      "images/kitchen/5.webp",
-      "images/kitchen/6.webp",
-      "images/kitchen/7.webp",
-      "images/kitchen/8.webp"
+      "images/kitchen/1.jpg",
+      "images/kitchen/2.jpg",
+      "images/kitchen/3.jpg",
+      "images/kitchen/4.jpg",
+      "images/kitchen/5.jpg",
+      "images/kitchen/6.jpg",
+      "images/kitchen/7.jpg",
+      "images/kitchen/8.jpg"
     ]
   },
 
@@ -239,14 +239,11 @@ const serviceGalleries = {
     title: "Сауна",
     text: "У комплексі є дві сауни на 6 осіб кожна з кімнатою відпочинку. Чудовий варіант для релаксу після прогулянок Карпатами.",
     images: [
-      "images/sauna/1.webp",
-      "images/sauna/2.webp",
-      "images/sauna/3.webp",
-      "images/sauna/4.webp",
-      "images/sauna/5.webp",
-      "images/sauna/6.webp",
-      "images/sauna/7.webp",
-      "images/sauna/8.webp"
+      "images/sauna/1.jpg",
+      "images/sauna/2.jpg",
+      "images/sauna/3.jpg",
+      "images/sauna/4.jpg",
+      "images/sauna/5.jpg"
     ]
   },
 
@@ -254,14 +251,8 @@ const serviceGalleries = {
     title: "Конференц-зал",
     text: "Конференц-зал на 40 місць із проектором, аудіосистемою, телевізором та Wi-Fi. Підходить для тренінгів, зустрічей і групових заїздів.",
     images: [
-      "images/conference/1.webp",
-      "images/conference/2.webp",
-      "images/conference/3.webp",
-      "images/conference/4.webp",
-      "images/conference/5.webp",
-      "images/conference/6.webp",
-      "images/conference/7.webp",
-      "images/conference/8.webp"
+      "images/conference/1.jpg",
+      "images/conference/2.jpg"
     ]
   },
 
@@ -269,14 +260,11 @@ const serviceGalleries = {
     title: "Активний відпочинок",
     text: "Поруч доступні екскурсії, походи в гори, кінні прогулянки, збір грибів та ягід. На території є настільний теніс, волейбол і батут.",
     images: [
-      "images/active/1.webp",
-      "images/active/2.webp",
-      "images/active/3.webp",
-      "images/active/4.webp",
-      "images/active/5.webp",
-      "images/active/6.webp",
-      "images/active/7.webp",
-      "images/active/8.webp"
+      "images/active/1.jpg",
+      "images/active/2.jpg",
+      "images/active/3.jpg",
+      "images/active/4.jpg",
+      "images/active/5.jpg"
     ]
   },
 
@@ -284,14 +272,10 @@ const serviceGalleries = {
     title: "Паркінг і гараж",
     text: "Для гостей доступний безкоштовний паркінг і гаражі під наглядом. Також можна замовити таксі або транспортні послуги за домовленістю.",
     images: [
-      "images/parking/1.webp",
-      "images/parking/2.webp",
-      "images/parking/3.webp",
-      "images/parking/4.webp",
-      "images/parking/5.webp",
-      "images/parking/6.webp",
-      "images/parking/7.webp",
-      "images/parking/8.webp"
+      "images/parking/1.jpg",
+      "images/parking/2.jpg",
+      "images/parking/3.jpg",
+      "images/parking/4.jpg"
     ]
   }
 };
@@ -324,7 +308,14 @@ function openServiceGallery(galleryName) {
 }
 
 function renderServiceGallery() {
-  if (!currentServiceGallery) return;
+  if (
+    !currentServiceGallery ||
+    !serviceMainImage ||
+    !serviceThumbs ||
+    !serviceCounter
+  ) {
+    return;
+  }
 
   const images = currentServiceGallery.images;
   const currentImage = images[currentServiceIndex];
@@ -333,7 +324,6 @@ function renderServiceGallery() {
   serviceMainImage.alt = currentServiceGallery.title;
 
   serviceCounter.textContent = `${currentServiceIndex + 1} / ${images.length}`;
-
   serviceThumbs.innerHTML = "";
 
   images.forEach((src, index) => {
@@ -363,7 +353,8 @@ function closeServiceGallery() {
 
 document.querySelectorAll(".service-gallery-open").forEach(card => {
   card.addEventListener("click", () => {
-    openServiceGallery(card.dataset.gallery);
+    const galleryName = card.getAttribute("data-gallery");
+    openServiceGallery(galleryName);
   });
 });
 
@@ -372,7 +363,7 @@ if (serviceModalClose) {
 }
 
 if (serviceModal) {
-  serviceModal.addEventListener("click", (e) => {
+  serviceModal.addEventListener("click", e => {
     if (e.target === serviceModal) {
       closeServiceGallery();
     }
@@ -402,7 +393,7 @@ if (serviceNext) {
   });
 }
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", e => {
   if (!serviceModal || !serviceModal.classList.contains("active")) return;
 
   if (e.key === "Escape") {
