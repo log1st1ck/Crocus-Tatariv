@@ -24,7 +24,7 @@ if (next && prev && slides.length > 0) {
         showSlide(current);
     });
 
-    showSlide(current);
+    showSlide(current);;
 }
 
 
