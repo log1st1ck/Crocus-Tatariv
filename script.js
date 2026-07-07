@@ -30,6 +30,38 @@ if (next && prev && slides.length > 0) {
   showSlide(current);
 }
 
+// Легкий паралакс для hero-фото.
+const heroSection = document.querySelector(".hero");
+const reduceMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+let heroParallaxTicking = false;
+
+function updateHeroParallax() {
+  heroParallaxTicking = false;
+
+  if (!heroSection || reduceMotionMedia.matches) return;
+
+  const rect = heroSection.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+  const parallaxOffset = Math.max(-120, Math.min(120, Math.round(rect.top * -0.16)));
+  heroSection.style.setProperty("--hero-parallax-y", `${parallaxOffset}px`);
+}
+
+function requestHeroParallaxUpdate() {
+  if (heroParallaxTicking) return;
+
+  heroParallaxTicking = true;
+  window.requestAnimationFrame(updateHeroParallax);
+}
+
+if (heroSection) {
+  updateHeroParallax();
+  window.addEventListener("scroll", requestHeroParallaxUpdate, { passive: true });
+  window.addEventListener("resize", requestHeroParallaxUpdate);
+}
+
 // Відправка в Google Таблицю
 function sendBookingToGoogle(data) {
   fetch(GOOGLE_SCRIPT_URL, {

@@ -145,9 +145,17 @@ body {
    HERO
    ============================ */
 .hero {
+  --hero-parallax-y: 0px;
   height: 91vh;
   min-height: 560px;
-  background: linear-gradient(160deg, #2a3015 0%, #3d4a20 40%, #5a6830 70%, #7a8540 100%);
+  background-image:
+    linear-gradient(rgba(8, 14, 10, 0.38), rgba(8, 14, 10, 0.38)),
+    url("images/background/beckground.jpg.png");
+  background-position:
+    center,
+    center calc(50% + var(--hero-parallax-y));
+  background-size: cover, cover;
+  background-repeat: no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -156,9 +164,7 @@ body {
 }
 
 .hero-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.15;
+  display: none;
 }
 
 .hero-bg svg {
