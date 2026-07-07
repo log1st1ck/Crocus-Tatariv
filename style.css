@@ -1172,6 +1172,30 @@ footer {
   border-color: var(--green);
 }
 
+.form-input.is-invalid,
+.modal-input.is-invalid {
+  border-color: #a94d43;
+  box-shadow: 0 0 0 1px rgba(169, 77, 67, 0.18);
+}
+
+.booking-box .form-input.is-invalid {
+  border-color: rgba(255, 195, 185, 0.95);
+}
+
+.field-error {
+  display: block;
+  margin: -8px 0 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #a94d43;
+  text-align: left;
+}
+
+.booking-box .field-error {
+  color: rgba(255, 225, 220, 0.95);
+}
+
 .modal-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

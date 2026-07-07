@@ -552,10 +552,10 @@
 <h3>Швидке бронювання</h3>
 <div class="form-row">
 <div class="form-group">
-<input class="form-input" id="name" placeholder="Ваше ім'я" type="text"/>
+<input autocomplete="name" class="form-input" id="name" placeholder="Ваше ім'я" type="text"/>
 </div>
 <div class="form-group">
-<input class="form-input" id="phone" placeholder="Телефон" type="tel"/>
+<input autocomplete="tel" class="form-input" id="phone" inputmode="numeric" placeholder="Телефон" type="tel"/>
 </div>
 </div>
 <div class="form-row">
@@ -692,8 +692,8 @@
 <button class="booking-close" id="closeBooking" type="button">×</button>
 <h2>Бронювання</h2>
 <form id="bookingModalForm">
-<input class="modal-input" id="modalName" placeholder="Ваше ім'я" required="" type="text"/>
-<input class="modal-input" id="modalPhone" placeholder="Телефон" required="" type="tel"/>
+<input autocomplete="name" class="modal-input" id="modalName" placeholder="Ваше ім'я" required="" type="text"/>
+<input autocomplete="tel" class="modal-input" id="modalPhone" inputmode="numeric" placeholder="Телефон" required="" type="tel"/>
 <div class="modal-row">
 <div>
 <label for="modalDateFrom">Заїзд</label>

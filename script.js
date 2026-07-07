@@ -76,40 +76,233 @@ function sendBookingToGoogle(data) {
   });
 }
 
-// Відправка заявки в Telegram + Google Таблицю
-function sendTelegramModal() {
-  const name = document.getElementById("modalName").value.trim();
-  const phone = document.getElementById("modalPhone").value.trim();
-  const dateFrom = document.getElementById("modalDateFrom").value;
-  const dateTo = document.getElementById("modalDateTo").value;
-  const room = document.getElementById("modalRoom").value;
-  const guests = document.getElementById("guestCount").textContent;
+function getDigits(value) {
+  return String(value || "").replace(/\D/g, "");
+}
 
-  if (!name || !phone || !dateFrom || !dateTo || !room || !guests) {
-    alert("Будь ласка, заповніть усі поля.");
-    return;
+function sanitizeName(value) {
+  return String(value || "").replace(/[^A-Za-zА-Яа-яІіЇїЄєҐґ\s]/g, "");
+}
+
+function sanitizePhone(value) {
+  return getDigits(value).slice(0, 15);
+}
+
+function getFieldValue(field) {
+  if (!field) return "";
+
+  if ("value" in field) {
+    return field.value.trim();
   }
 
-  sendBookingToGoogle({
-    name,
-    phone,
-    dateFrom,
-    dateTo,
-    room,
-    guests,
-    source: "pop-up"
-  });
-
-  alert("Заявку успішно надіслано!");
-
-  document.getElementById("bookingModal").classList.remove("active");
-  document.getElementById("modalName").value = "";
-  document.getElementById("modalPhone").value = "";
-  document.getElementById("modalDateFrom").value = "";
-  document.getElementById("modalDateTo").value = "";
-  document.getElementById("modalRoom").value = "";
-  document.getElementById("guestCount").textContent = "1";
+  return field.textContent.trim();
 }
+
+function parseBookingDate(value) {
+  const parts = String(value || "").split(".").map(Number);
+
+  if (parts.length !== 3 || parts.some(Number.isNaN)) {
+    return null;
+  }
+
+  const [day, month, year] = parts;
+  const date = new Date(year, month - 1, day);
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return date;
+}
+
+function clearFieldError(field) {
+  if (!field || !field.id) return;
+
+  field.classList.remove("is-invalid");
+
+  const error = document.querySelector(`[data-error-for="${field.id}"]`);
+  if (error) {
+    error.remove();
+  }
+}
+
+function setFieldError(field, message) {
+  if (!field || !field.id) return;
+
+  clearFieldError(field);
+  field.classList.add("is-invalid");
+
+  const error = document.createElement("div");
+  error.className = "field-error";
+  error.dataset.errorFor = field.id;
+  error.textContent = message;
+
+  field.insertAdjacentElement("afterend", error);
+}
+
+function validateBookingFields(fields) {
+  let isValid = true;
+  const name = getFieldValue(fields.name);
+  const phone = getFieldValue(fields.phone);
+  const dateFrom = getFieldValue(fields.dateFrom);
+  const dateTo = getFieldValue(fields.dateTo);
+  const room = getFieldValue(fields.room);
+  const guests = getFieldValue(fields.guests);
+  const guestCount = Number(getDigits(guests));
+
+  Object.values(fields).forEach(clearFieldError);
+
+  if (name.length < 2) {
+    setFieldError(fields.name, "Вкажіть ім'я, мінімум 2 символи.");
+    isValid = false;
+  }
+
+  if (name !== sanitizeName(name)) {
+    setFieldError(fields.name, "Ім'я має містити тільки літери.");
+    isValid = false;
+  }
+
+  const phoneDigits = getDigits(phone);
+  if (phone !== phoneDigits) {
+    setFieldError(fields.phone, "Телефон має містити тільки цифри.");
+    isValid = false;
+  }
+
+  if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+    setFieldError(fields.phone, "Вкажіть коректний номер телефону.");
+    isValid = false;
+  }
+
+  const parsedDateFrom = parseBookingDate(dateFrom);
+  const parsedDateTo = parseBookingDate(dateTo);
+
+  if (!parsedDateFrom) {
+    setFieldError(fields.dateFrom, "Оберіть дату заїзду.");
+    isValid = false;
+  }
+
+  if (!parsedDateTo) {
+    setFieldError(fields.dateTo, "Оберіть дату виїзду.");
+    isValid = false;
+  }
+
+  if (parsedDateFrom && parsedDateTo && parsedDateTo <= parsedDateFrom) {
+    setFieldError(fields.dateTo, "Дата виїзду має бути пізніше за дату заїзду.");
+    isValid = false;
+  }
+
+  if (!room) {
+    setFieldError(fields.room, "Оберіть тип номеру.");
+    isValid = false;
+  }
+
+  if (!guestCount || guestCount < 1 || guestCount > 48) {
+    setFieldError(fields.guests, "Вкажіть кількість гостей від 1 до 48.");
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function collectBookingData(fields, source) {
+  return {
+    name: getFieldValue(fields.name),
+    phone: getFieldValue(fields.phone),
+    dateFrom: getFieldValue(fields.dateFrom),
+    dateTo: getFieldValue(fields.dateTo),
+    room: getFieldValue(fields.room),
+    guests: getFieldValue(fields.guests),
+    source
+  };
+}
+
+function clearBookingFields(fields) {
+  Object.values(fields).forEach(field => {
+    clearFieldError(field);
+    if ("value" in field) {
+      field.value = "";
+    }
+  });
+}
+
+function sendTelegram() {
+  const fields = {
+    name: document.getElementById("name"),
+    phone: document.getElementById("phone"),
+    dateFrom: document.getElementById("dateFrom"),
+    dateTo: document.getElementById("dateTo"),
+    room: document.getElementById("room"),
+    guests: document.getElementById("guests")
+  };
+
+  if (!validateBookingFields(fields)) return;
+
+  sendBookingToGoogle(collectBookingData(fields, "bottom-form"));
+  clearBookingFields(fields);
+  showSuccessModal();
+}
+
+// Відправка заявки в Telegram + Google Таблицю
+function sendTelegramModal() {
+  const fields = {
+    name: document.getElementById("modalName"),
+    phone: document.getElementById("modalPhone"),
+    dateFrom: document.getElementById("modalDateFrom"),
+    dateTo: document.getElementById("modalDateTo"),
+    room: document.getElementById("modalRoom"),
+    guests: document.getElementById("guestCount")
+  };
+
+  if (!validateBookingFields(fields)) return;
+
+  sendBookingToGoogle(collectBookingData(fields, "pop-up"));
+  document.getElementById("bookingModal").classList.remove("active");
+  clearBookingFields({
+    name: fields.name,
+    phone: fields.phone,
+    dateFrom: fields.dateFrom,
+    dateTo: fields.dateTo,
+    room: fields.room
+  });
+  modalGuests = 1;
+  fields.guests.textContent = "1";
+  showSuccessModal();
+}
+
+[
+  "name",
+  "phone",
+  "dateFrom",
+  "dateTo",
+  "room",
+  "guests",
+  "modalName",
+  "modalPhone",
+  "modalDateFrom",
+  "modalDateTo",
+  "modalRoom"
+].forEach(id => {
+  const field = document.getElementById(id);
+
+  if (!field) return;
+
+  field.addEventListener("input", () => {
+    if (id === "name" || id === "modalName") {
+      field.value = sanitizeName(field.value);
+    }
+
+    if (id === "phone" || id === "modalPhone") {
+      field.value = sanitizePhone(field.value);
+    }
+
+    clearFieldError(field);
+  });
+  field.addEventListener("change", () => clearFieldError(field));
+});
 
  
 
