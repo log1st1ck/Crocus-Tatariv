@@ -141,6 +141,11 @@ body {
   font-size: 10px;
 }
 
+.mobile-menu-toggle,
+.mobile-menu {
+  display: none;
+}
+
 /* ============================
    HERO
    ============================ */
@@ -253,34 +258,6 @@ body {
 
 .btn-outline:hover {
   border-color: #fff;
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 9px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  z-index: 2;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.25);
-  animation: scrollAnim 2s ease-in-out infinite;
-}
-
-@keyframes scrollAnim {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.5); transform-origin: top; }
-  50% { opacity: 1; transform: scaleY(1); }
 }
 
 /* ============================
@@ -624,8 +601,16 @@ section {
 }
 
 .room-card .btn-book-small {
-  width: 190px;
-  margin-top: 10px;
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  margin-top: 18px;
+  padding: 0 18px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
 }
 
 /* Price Table */
@@ -651,6 +636,18 @@ section {
   padding: 14px 20px;
   font-size: 14px;
   border-bottom: 1px solid var(--cream-dark);
+}
+
+.price-table .btn-book-small {
+  width: 100% !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  padding: 0 18px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
 }
 
 .price-table tr:last-child td {
@@ -991,6 +988,19 @@ section {
   gap: 12px;
 }
 
+.booking-box .form-row {
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.booking-box .form-row .form-group {
+  margin-bottom: 0;
+}
+
+.booking-box > .form-group {
+  margin-bottom: 16px;
+}
+
 .form-input {
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
@@ -1036,6 +1046,10 @@ section {
   margin-top: 8px;
   transition: all 0.3s;
   border-radius: 1px;
+}
+
+.booking-box .btn-book-big {
+  margin-top: 0;
 }
 
 .btn-book-big:hover {
@@ -1178,13 +1192,17 @@ footer {
   box-shadow: 0 0 0 1px rgba(169, 77, 67, 0.18);
 }
 
+.modal-input.is-invalid {
+  margin-bottom: 0;
+}
+
 .booking-box .form-input.is-invalid {
   border-color: rgba(255, 195, 185, 0.95);
 }
 
 .field-error {
   display: block;
-  margin: -8px 0 12px;
+  margin: 7px 0 12px;
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
   line-height: 1.45;
@@ -1194,6 +1212,7 @@ footer {
 
 .booking-box .field-error {
   color: rgba(255, 225, 220, 0.95);
+  margin: 7px 0 0;
 }
 
 .modal-row {
@@ -1356,14 +1375,37 @@ footer {
     padding: 14px 18px;
   }
 
-  .hero-scroll {
-    bottom: 18px;
-  }
-
   .rooms-grid,
   .services-grid,
   .contacts-inner {
     grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .service-card {
+    min-height: 260px;
+    padding: 24px 12px;
+  }
+
+  .service-title {
+    font-size: 18px;
+  }
+
+  .service-desc {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .service-badge {
+    max-width: 100%;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    line-height: 1.35;
+    padding: 4px 8px;
   }
 
   .rooms-header {
@@ -1399,6 +1441,11 @@ footer {
     white-space: nowrap;
   }
 
+  .price-table th:last-child,
+  .price-table td:last-child {
+    min-width: 220px;
+  }
+
   section {
     padding: 64px 20px;
   }
@@ -1406,7 +1453,13 @@ footer {
 
 @media (max-width: 480px) {
   .services-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .service-card {
+    min-height: 275px;
+    padding: 22px 10px;
   }
 
   .form-row,
@@ -1577,6 +1630,186 @@ footer {
   .logo-wrapper img,
   .logo-wrapper svg {
     height: 38px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-header {
+    position: sticky !important;
+  }
+
+  .header-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 66px !important;
+    padding: 0 16px !important;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex !important;
+    width: 42px !important;
+    height: 42px !important;
+    border: 1px solid rgba(94, 103, 56, 0.22) !important;
+    background: #fff !important;
+    color: var(--green-dark) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    order: 1 !important;
+    padding: 0 !important;
+  }
+
+  .mobile-menu-toggle span {
+    width: 19px;
+    height: 2px;
+    background: currentColor;
+    display: block;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .main-header.is-menu-open .mobile-menu-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .main-header.is-menu-open .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .main-header.is-menu-open .mobile-menu-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-left,
+  .nav-right {
+    display: none !important;
+  }
+
+  .logo-wrapper {
+    display: flex !important;
+    justify-self: auto !important;
+    justify-content: flex-end !important;
+    margin-left: auto !important;
+    order: 2 !important;
+  }
+
+  .logo-wrapper img,
+  .logo-wrapper svg {
+    height: 52px !important;
+    width: auto !important;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 0;
+    background: rgba(249, 247, 242, 0.98);
+    border-top: 1px solid rgba(94, 103, 56, 0.12);
+    border-bottom: 1px solid rgba(94, 103, 56, 0.12);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+
+  .main-header.is-menu-open .mobile-menu {
+    max-height: 360px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu a,
+  .mobile-menu__book {
+    min-height: 48px !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(94, 103, 56, 0.1) !important;
+    background: transparent !important;
+    color: var(--text) !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.8px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    width: 100% !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-menu__book {
+    background: var(--green) !important;
+    color: #fff !important;
+    justify-content: center !important;
+    border-bottom: none !important;
+  }
+
+  .hero {
+    min-height: 680px;
+    padding: 92px 20px 54px;
+  }
+
+  .hero-badge {
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero h1 {
+    font-size: 56px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    margin-bottom: 28px;
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline {
+    width: 100% !important;
+    max-width: 320px !important;
+    min-height: 50px !important;
+    padding: 0 18px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 10px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+}
+
+@media (max-width: 390px) {
+  .header-container {
+    padding: 0 12px !important;
+  }
+
+  .logo-wrapper img,
+  .logo-wrapper svg {
+    height: 46px !important;
+  }
+
+  .hero {
+    min-height: 620px;
+    padding-top: 78px;
+    padding-bottom: 44px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
   }
 }
 .success-modal {

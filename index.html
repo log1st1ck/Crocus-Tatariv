@@ -83,6 +83,11 @@
 <body>
 <header class="main-header">
 <div class="header-container">
+<button class="mobile-menu-toggle" type="button" aria-controls="mobileMenu" aria-expanded="false" aria-label="Відкрити меню">
+<span></span>
+<span></span>
+<span></span>
+</button>
 <nav class="nav-left"><ul>
 <li><a href="#rooms">Номери</a></li>
 <li><a href="#about">Про нас</a></li>
@@ -95,6 +100,13 @@
 <li><a href="#location">Як доїхати</a></li>
 <li><button class="btn-book-header btn-book-small openBooking" type="button">Бронювати</button></li>
 </ul></nav>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#rooms">Номери</a>
+<a href="#about">Про нас</a>
+<a href="#services">Послуги</a>
+<a href="#location">Як доїхати</a>
+<button class="mobile-menu__book openBooking" type="button">Бронювати</button>
 </div>
 </header>
 <!-- HERO -->
@@ -115,10 +127,6 @@
 <button class="btn-primary openBooking" type="button">Забронювати номер</button>
 <button class="btn-outline" onclick="document.getElementById('rooms').scrollIntoView({behavior:'smooth'})">Переглянути номери</button>
 </div>
-</div>
-<div class="hero-scroll">
-<div class="scroll-line"></div>
-<span>Гортати</span>
 </div>
 </section>
 <!-- STATS BAR -->
@@ -573,7 +581,7 @@
 <option>Сімейний з балконом (1 300 грн / добу)</option>
 <option>Чотиримісний з балконом (1 400 грн / добу)</option>
 <option>Чотиримісний у мансарді (1 400 грн / добу)</option>
-<option>Група 20–48 осіб (від 350 грн з особи)</option>
+<option>Група 20–48 осіб (від 450 грн з особи)</option>
 </select>
 </div>
 <div class="form-group">
@@ -718,7 +726,7 @@
 <option>Сімейний з балконом (1 300 грн / добу)</option>
 <option>Чотиримісний з балконом (1 400 грн / добу)</option>
 <option>Чотиримісний у мансарді (1 400 грн / добу)</option>
-<option>Група 20–48 осіб (від 350 грн з особи)</option>
+<option>Група 20–48 осіб (від 450 грн з особи)</option>
 </select>
 <button class="btn-book-big" onclick="sendTelegramModal()" type="button">
         Відправити заявку

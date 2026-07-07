@@ -366,6 +366,57 @@ if (bookingModal) {
   });
 }
 
+// Бургер-меню на телефоні
+const mainHeader = document.querySelector(".main-header");
+const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+const mobileMenu = document.getElementById("mobileMenu");
+
+function closeMobileMenu() {
+  if (!mainHeader || !mobileMenuToggle) return;
+
+  mainHeader.classList.remove("is-menu-open");
+  mobileMenuToggle.setAttribute("aria-expanded", "false");
+}
+
+function toggleMobileMenu() {
+  if (!mainHeader || !mobileMenuToggle) return;
+
+  const isOpen = mainHeader.classList.toggle("is-menu-open");
+  mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
+}
+
+if (mobileMenuToggle) {
+  mobileMenuToggle.addEventListener("click", event => {
+    event.stopPropagation();
+    toggleMobileMenu();
+  });
+}
+
+if (mobileMenu) {
+  mobileMenu.querySelectorAll("a, button").forEach(item => {
+    item.addEventListener("click", closeMobileMenu);
+  });
+}
+
+document.addEventListener("click", event => {
+  if (!mainHeader || !mainHeader.classList.contains("is-menu-open")) return;
+  if (mainHeader.contains(event.target)) return;
+
+  closeMobileMenu();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeMobileMenu();
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) {
+    closeMobileMenu();
+  }
+});
+
 // Кількість гостей у pop-up
 const minusGuest = document.getElementById("minusGuest");
 const plusGuest = document.getElementById("plusGuest");
