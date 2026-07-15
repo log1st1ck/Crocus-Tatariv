@@ -561,8 +561,7 @@ const roomGalleries = {
       "images/4misnyi/5.jpg",
       "images/4misnyi/6.jpg",
       "images/4misnyi/7.jpg",
-      "images/4misnyi/8.jpg",
-      "images/4misnyi/9.jpg"
+      "images/4misnyi/8.jpg"
     ]
   }
 };
