@@ -1,0 +1,24 @@
+{
+  "name": "Відпочинковий комплекс Крокус",
+  "short_name": "Крокус",
+  "description": "Відпочинок у Татарові біля Буковелю: номери, сауна, кухня, паркінг і Wi-Fi.",
+  "lang": "uk",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f2e8",
+  "theme_color": "#1f3d2b",
+  "icons": [
+    {
+      "src": "images/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

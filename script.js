@@ -530,8 +530,10 @@ const roomGalleries = {
     text: "Двомісний номер під дахом з двоспальним ліжком, телевізором, вішалкою та власним санвузлом.",
     bookingValue: "Стандарт у мансарді",
     images: [
-      "images/standrt/1.jpg",
-      "images/standrt/2.jpg"
+      "images/standrt/1.jpg?v=20260715",
+      "images/standrt/2.jpg?v=20260715",
+      "images/standrt/3.jpg?v=20260715",
+      "images/standrt/4.jpg?v=20260715"
     ]
   },
 
@@ -761,14 +763,11 @@ const serviceGalleries = {
     title: "Кухня",
     text: "На кожному поверсі є кухня з усім необхідним для комфортного приготування їжі: плита, мікрохвильова піч, холодильник, посудомийна машина, чайник та посуд.",
     images: [
-      "images/kitchen/1.jpg",
-      "images/kitchen/2.jpg",
-      "images/kitchen/3.jpg",
-      "images/kitchen/4.jpg",
-      "images/kitchen/5.jpg",
-      "images/kitchen/6.jpg",
-      "images/kitchen/7.jpg",
-      "images/kitchen/8.jpg"
+      "images/kitchen/1.jpg?v=20260715",
+      "images/kitchen/2.jpg?v=20260715",
+      "images/kitchen/3.jpg?v=20260715",
+      "images/kitchen/4.jpg?v=20260715",
+      "images/kitchen/5.jpg?v=20260715"
     ]
   },
 
@@ -776,11 +775,12 @@ const serviceGalleries = {
     title: "Сауна",
     text: "У комплексі є дві сауни на 6 осіб кожна з кімнатою відпочинку. Чудовий варіант для релаксу після прогулянок Карпатами.",
     images: [
-      "images/sauna/1.jpg",
-      "images/sauna/2.jpg",
-      "images/sauna/3.jpg",
-      "images/sauna/4.jpg",
-      "images/sauna/5.jpg"
+      "images/sauna/1.jpg?v=20260715",
+      "images/sauna/2.jpg?v=20260715",
+      "images/sauna/3.jpg?v=20260715",
+      "images/sauna/4.jpg?v=20260715",
+      "images/sauna/5.jpg?v=20260715",
+      "images/sauna/7.jpg?v=20260715"
     ]
   },
 
@@ -797,11 +797,13 @@ const serviceGalleries = {
     title: "Активний відпочинок",
     text: "Поруч доступні екскурсії, походи в гори, кінні прогулянки, збір грибів та ягід. На території є настільний теніс, волейбол і батут.",
     images: [
-      "images/active/1.jpg",
-      "images/active/2.jpg",
-      "images/active/3.jpg",
-      "images/active/4.jpg",
-      "images/active/5.jpg"
+      "images/active/1.jpg?v=20260715",
+      "images/active/2.jpg?v=20260715",
+      "images/active/3.jpg?v=20260715",
+      "images/active/4.jpg?v=20260715",
+      "images/active/5.jpg?v=20260715",
+      "images/active/6.jpg?v=20260715",
+      "images/active/7.jpg?v=20260715"
     ]
   },
 

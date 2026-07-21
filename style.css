@@ -164,7 +164,7 @@ body {
   min-height: 560px;
   background-image:
     linear-gradient(rgba(8, 14, 10, 0.38), rgba(8, 14, 10, 0.38)),
-    url("images/background/beckground.jpg.png");
+    url("images/background/hero-bg.jpg");
   background-position:
     center,
     center calc(50% + var(--hero-parallax-y));
